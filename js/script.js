@@ -12,18 +12,35 @@ const validate = (event) => {
     errors.innerHTML = '';
 
     // trim ucina białe znaki z lewej i prawej strony stringa
-    if (txtName.value.trim() === ''){
+    if (txtName.value.trim() === '') {
         let liError = document.createElement('li');
         liError.innerText = 'Wpisz imię i nazwisko!';
-
         errors.appendChild(liError)
-        console.log(liError);
     }
 
+    if (txtEmail.value.trim() === '') {
+        let liError = document.createElement('li');
+        liError.innerText = 'Wpisz adres e-mail!';
+        errors.appendChild(liError)
+    }
+    // dla przeglądarki, która nie ma obsługi pól typu email 
+    if (!txtEmail.value.includes('@')) {
+        let liError = document.createElement('li');
+        liError.innerText = 'Adres e-mail musi zawierać @';
+        errors.appendChild(liError)
+    }
 
-    event.preventDefault();
+    if (!agree1.checked) {
+        let liError = document.createElement('li');
+        liError.innerText = 'Nie wyraziłeś zgody 1!';
+        errors.appendChild(liError)
+    }
 
-    console.log('validate()');
+    // .length zwraca HTML collection (podobne do tablic)
+    if (errors.children.length > 0) {
+        event.preventDefault();
+    }
+
 }
 
 const allAgree = (event) => {
